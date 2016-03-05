@@ -18,7 +18,7 @@ public class NetworkManager : Photon.MonoBehaviour {
 
 	}
 	void Connection() {
-			PhotonNetwork.ConnectUsingSettings ("Prototype_2");
+			PhotonNetwork.ConnectUsingSettings ("Prototype_3");
 	}
 	void OnGUI(){
 		GUILayout.Label (PhotonNetwork.connectionStateDetailed.ToString ());
@@ -61,7 +61,7 @@ public class NetworkManager : Photon.MonoBehaviour {
 	
 		if (PhotonNetwork.isMasterClient) {
 			RespawnMadScientist ();
-			SpawnMachines ();
+			//SpawnMachines ();
 
 		} else {
 			RespawnNephew ();
