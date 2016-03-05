@@ -6,14 +6,17 @@ public class NetworkManager : Photon.MonoBehaviour {
 	public bool offlineMode = false;
 	public GameObject passiveCamera;
 	GameObject madScientistRespawnSpot;
+	GameObject[] nephewRespawnSpots;
 	GameObject nephewRespawnSpot;
 	public GameObject[] machineSpawnSpots;
 
 	void Start () {
 		passiveCamera = GameObject.Find ("Main Camera");
 		madScientistRespawnSpot = GameObject.FindGameObjectWithTag("MadScientistRespawnSpot");
+		nephewRespawnSpots = GameObject.FindGameObjectsWithTag("NephewRespawnSpot");
 		nephewRespawnSpot = GameObject.FindGameObjectWithTag("NephewRespawnSpot");
-		machineSpawnSpots = GameObject.FindGameObjectsWithTag ("MachineSpawnSpot");
+
+		//machineSpawnSpots = GameObject.FindGameObjectsWithTag ("MachineSpawnSpot");
 
 
 	}
@@ -61,10 +64,26 @@ public class NetworkManager : Photon.MonoBehaviour {
 	
 		if (PhotonNetwork.isMasterClient) {
 			RespawnMadScientist ();
+			Debug.Log(PhotonNetwork.countOfPlayers.ToString ());
+
 			//SpawnMachines ();
 
 		} else {
-			RespawnNephew ();
+			switch (PhotonNetwork.countOfPlayers)
+			{
+			case 2:
+				Debug.Log(PhotonNetwork.countOfPlayers.ToString ());
+				RespawnNephew (0);
+				break;
+			case 3:
+				Debug.Log(PhotonNetwork.countOfPlayers.ToString ());
+				RespawnNephew (1);
+				break;
+			case 4:
+				Debug.Log(PhotonNetwork.countOfPlayers.ToString ());
+				RespawnNephew (2);
+				break;
+			}
 		}
 
 
@@ -84,8 +103,8 @@ public class NetworkManager : Photon.MonoBehaviour {
 		((MonoBehaviour)madScientistControllerGO.GetComponent("FirstPersonController")).enabled = true;
 
 }
-	void RespawnNephew (){
-		GameObject nephewControllerGO = (GameObject)PhotonNetwork.Instantiate ("Nephew", nephewRespawnSpot.transform.position, nephewRespawnSpot.transform.rotation, 0);
+	void RespawnNephew (int playerNumber){
+		GameObject nephewControllerGO = (GameObject)PhotonNetwork.Instantiate ("Nephew", nephewRespawnSpots[playerNumber].transform.position, nephewRespawnSpot.transform.rotation, 0);
 		nephewControllerGO.transform.FindChild ("FirstPersonCharacter").gameObject.SetActive (true);
 		((MonoBehaviour)nephewControllerGO.GetComponent("FirstPersonController")).enabled = true;
 	}
