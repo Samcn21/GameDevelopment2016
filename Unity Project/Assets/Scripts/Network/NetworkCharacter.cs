@@ -16,9 +16,6 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 		if (photonView.isMine) {
 			//do Nothing - cause character is mine
 		} else {
-			if (gameObject.tag == "Machine"){
-				Debug.Log ("Hi");
-			}
 				transform.position = Vector3.Lerp (transform.position, realPosition, 0.1f);
 				transform.rotation = Quaternion.Lerp (transform.rotation, realRotation, 0.1f);
 			}

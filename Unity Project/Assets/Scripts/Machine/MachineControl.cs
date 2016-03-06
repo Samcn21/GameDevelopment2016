@@ -4,9 +4,9 @@ using System.Collections;
 public class MachineControl : Photon.MonoBehaviour {
 
 	public Material brokenMachine;
-	public float destroyTime = 4f;
+	public float destroyTime = 2f;
 	public Material fixedMachine;
-	public float fixedTime = 2f;
+	public float fixedTime = 1f;
 	//Vector3 realPosition = Vector3.zero;
 	//Quaternion realRotation = Quaternion.identity;
 	//public renderer rend;
@@ -20,14 +20,15 @@ public class MachineControl : Photon.MonoBehaviour {
 
 	}
 
-	void OnTriggerStay (Collider other) {
+	[PunRPC]
+	public void OnTriggerStay (Collider other) {
 		if (other.tag == "MadScientist") {
 			if (Input.GetMouseButton(0)){
 				fixedTime -= Time.deltaTime;
 				if (fixedTime < 0) {
-					//GetComponent<Renderer> ().material = fixedMachine;
+					GetComponent<Renderer> ().material = fixedMachine;
 					transform.position = new Vector3 (transform.position.x, transform.position.y + 1, transform.position.z);
-					fixedTime = 2f;
+					fixedTime = 1f;
 				}
 			}
 		} 
@@ -35,9 +36,9 @@ public class MachineControl : Photon.MonoBehaviour {
 			if (Input.GetMouseButton(0)){
 				destroyTime -= Time.deltaTime;
 				if (destroyTime < 0) {
-					//GetComponent<Renderer> ().material = brokenMachine;
+					GetComponent<Renderer> ().material = brokenMachine;
 					transform.position = new Vector3 (transform.position.x, transform.position.y - 1, transform.position.z);
-					destroyTime = 4f;
+					destroyTime = 2f;
 				}
 			}
 		}
