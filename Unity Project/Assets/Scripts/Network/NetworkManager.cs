@@ -96,11 +96,13 @@ public class NetworkManager : Photon.MonoBehaviour {
 //		}
 
 	}
+
 	void RespawnMadScientist (){
 		
 		GameObject madScientistControllerGO = (GameObject)PhotonNetwork.Instantiate ("MadScientist", madScientistRespawnSpot.transform.position, madScientistRespawnSpot.transform.rotation, 0);
 		madScientistControllerGO.transform.FindChild ("FirstPersonCharacter").gameObject.SetActive (true);
 		((MonoBehaviour)madScientistControllerGO.GetComponent("FirstPersonController")).enabled = true;
+		((MonoBehaviour)madScientistControllerGO.GetComponent("DemolitionRepair")).enabled = true;
 
 }
 	void RespawnNephew (int playerNumber){
@@ -111,6 +113,8 @@ public class NetworkManager : Photon.MonoBehaviour {
 		((MonoBehaviour)nephewControllerGO.GetComponent("FirstPersonController")).enabled = true;
 		((MonoBehaviour)nephewControllerGO.GetComponent("RayReciever")).enabled = true;
 		((MonoBehaviour)nephewControllerGO.GetComponent("NephewController")).enabled = true;
+		((MonoBehaviour)nephewControllerGO.GetComponent("DemolitionRepair")).enabled = true;
+
 	}
 
 	void SpawnMachines(){

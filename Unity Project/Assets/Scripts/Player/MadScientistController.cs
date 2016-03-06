@@ -34,7 +34,6 @@ public class MadScientistController: MonoBehaviour {
 				default:
 					break;
 				}
-
 			}
 		}
 
