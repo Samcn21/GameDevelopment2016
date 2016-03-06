@@ -21,12 +21,12 @@ public class NephewController: MonoBehaviour {
 		}
 	}
 
-	void OnTriggerEnter (Collider other){
-		if (other.tag == "MadScientist")
-		{
-			Debug.Log ("You Caught me!!!");
-			timeStart = true;
-			((MonoBehaviour)gameObject.GetComponent("FirstPersonController")).enabled = false;
-		}
-	}
+//	void OnTriggerEnter (Collider other){
+//		if (other.tag == "MadScientist")
+//		{
+//			Debug.Log ("You Caught me!!!");
+//			timeStart = true;
+//			((MonoBehaviour)gameObject.GetComponent("FirstPersonController")).enabled = false;
+//		}
+//	}
 }

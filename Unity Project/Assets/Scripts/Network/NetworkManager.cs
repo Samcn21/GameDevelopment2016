@@ -104,9 +104,13 @@ public class NetworkManager : Photon.MonoBehaviour {
 
 }
 	void RespawnNephew (int playerNumber){
-		GameObject nephewControllerGO = (GameObject)PhotonNetwork.Instantiate ("Nephew", nephewRespawnSpots[playerNumber].transform.position, nephewRespawnSpot.transform.rotation, 0);
+		GameObject nephewControllerGO = (GameObject)PhotonNetwork.Instantiate ("Nephew" , nephewRespawnSpots[playerNumber].transform.position, nephewRespawnSpot.transform.rotation, 0);
+		nephewControllerGO.name = nephewControllerGO.name + playerNumber.ToString ();
+		Debug.Log (nephewControllerGO.name);
 		nephewControllerGO.transform.FindChild ("FirstPersonCharacter").gameObject.SetActive (true);
 		((MonoBehaviour)nephewControllerGO.GetComponent("FirstPersonController")).enabled = true;
+		((MonoBehaviour)nephewControllerGO.GetComponent("RayReciever")).enabled = true;
+		((MonoBehaviour)nephewControllerGO.GetComponent("NephewController")).enabled = true;
 	}
 
 	void SpawnMachines(){
