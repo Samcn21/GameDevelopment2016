@@ -6,6 +6,8 @@ public class RayReciever : MonoBehaviour {
 	public int currentResistance = 100;
 	public bool canGetShotShrinker = true;
 	public bool canGetShotForceDome = true;
+	public bool canGetShotTeleporterExile = true;
+
 
 	public float shrinkedTime = 6f;
 	public float shrinkedCooldownTime = 25f;
@@ -13,6 +15,10 @@ public class RayReciever : MonoBehaviour {
 	public float forceDomeTime = 6f;
 	public float forceDomeCooldownTime = 20f;
 	public Vector3 forceDomePosition = new Vector3(6f, -1f, 50f);
+
+	public float teleporterExileTime = 10f;
+	public float teleporterExileCooldownTime = 45f;
+	public Vector3 teleporterExilePosition = new Vector3(6f, -1f, 50f);
 
 	public Vector3 shrinkedSize = new Vector3 (0.1f, 0.1f, 0.1f);
 	public Vector3 originalSize = new Vector3 (1f, 1f, 1f);
@@ -59,8 +65,6 @@ public class RayReciever : MonoBehaviour {
 				forceDome.transform.position = this.transform.position;
 				canGetShotForceDome = false;
 
-				Debug.Log (forceDomePosition);
-
 				yield return new WaitForSeconds (forceDomeTime);
 				forceDome.transform.position = forceDomePosition;
 
@@ -68,6 +72,28 @@ public class RayReciever : MonoBehaviour {
 
 				currentResistance = resistancePoints;
 				canGetShotForceDome = true;
+			}
+			break;
+
+		case "Teleporter Exile":
+			currentResistance -= hitPoints;
+			if ((currentResistance < 0) && (canGetShotTeleporterExile)) {
+
+				GameObject teleporterSpawn = GameObject.FindGameObjectWithTag("TeleporterExileSpawn");
+				Vector3 beforeTeleportPosition = this.transform.position;
+
+				this.transform.position = teleporterSpawn.transform.position;
+				canGetShotTeleporterExile = false;
+
+				//Debug.Log (forceDomePosition);
+
+				yield return new WaitForSeconds (teleporterExileTime);
+				this.transform.position = beforeTeleportPosition;
+
+				yield return new WaitForSeconds (teleporterExileCooldownTime);
+
+				currentResistance = resistancePoints;
+				canGetShotTeleporterExile = true;
 			}
 			break;
 		default:

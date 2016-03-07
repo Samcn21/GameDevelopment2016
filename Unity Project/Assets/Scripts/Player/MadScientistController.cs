@@ -4,9 +4,13 @@ using System.Collections;
 public class MadScientistController: MonoBehaviour {
 
 	public float shrinkerRayFireRate = 5f;
-	public float forceDomeFireRate = 1f;
 	public float shrinkerRaycooldown = 0f;
-	public float forceDomeRaycooldown = 10f;
+
+	public float forceDomeFireRate = 6f;
+	public float forceDomeRaycooldown = 0f;
+
+	public float teleporterExileFireRate = 5f;
+	public float teleporterExilecooldown = 0f;
 
 	public string currentWeaponName;
 	ArrayList inputKeys; 
@@ -41,7 +45,7 @@ public class MadScientistController: MonoBehaviour {
 					SwitchWeapons (currentWeaponName);
 					break;
 				case KeyCode.Alpha3:
-					currentWeaponName = "Teleporter Pad";
+					currentWeaponName = "Teleporter Exile";
 					this.GetComponent<PhotonView> ().RPC ("SwitchWeapons", PhotonTargets.All, currentWeaponName);
 					SwitchWeapons (currentWeaponName);
 					break;
@@ -77,6 +81,11 @@ public class MadScientistController: MonoBehaviour {
 				Shoot(forceDomeRaycooldown, forceDomeFireRate, currentWeaponName);
 			}
 			break;
+		case "Teleporter Exile":
+			if (Input.GetButton("Fire1")){
+				Shoot(teleporterExilecooldown, teleporterExileFireRate, currentWeaponName);
+			}
+			break;			
 		default:
 			//Debug.Log ("I have nothing!!!");
 			break;
