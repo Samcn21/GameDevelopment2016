@@ -10,20 +10,20 @@ public class DemolitionRepair : MonoBehaviour {
 	public bool isDestroyed = false;
 	public bool oneTimeCall = false;
 
-	GameObject[] allMachines;
+	//GameObject[] allMachines;
 	public MachineControl mc;
 	public string characterTag = "";
 
 	void Start () {
 		characterTag = transform.tag.ToString ();
-		allMachines = GameObject.FindGameObjectsWithTag ("Machine");
+		//allMachines = GameObject.FindGameObjectsWithTag ("Machine");
 	}
 
 	void OnTriggerStay(Collider other){
-		//if (other.name == "Machine"){
-			if (oneTimeCall){
-				mc = other.GetComponent<MachineControl>();
-				mc.GetComponent<PhotonView> ().RPC ("DemolitionRepair",PhotonTargets.All, characterTag, isRepaired, isDestroyed);
+		//if (other.name == "Machine") {
+			if (oneTimeCall) {
+				mc = other.GetComponent<MachineControl> ();
+				mc.GetComponent<PhotonView> ().RPC ("DemolitionRepair", PhotonTargets.All, characterTag, isRepaired, isDestroyed);
 				oneTimeCall = false;
 				//Debug.Log ("Invoked Demolition Repair function in Machine Control script");				
 			}
