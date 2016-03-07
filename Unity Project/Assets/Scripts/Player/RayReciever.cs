@@ -11,19 +11,19 @@ public class RayReciever : MonoBehaviour {
 
 
 
-	public float shrinkedTime = 6f;
+	public float shrinkedTime = 10f;
 	public float shrinkedCooldownTime = 25f;
 
-	public float forceDomeTime = 6f;
+	public float forceDomeTime = 10f;
 	public float forceDomeCooldownTime = 20f;
 	public Vector3 forceDomePosition = new Vector3(6f, -1f, 50f);
 
-	public float teleporterExileTime = 10f;
+	public float teleporterExileTime = 15f;
 	public float teleporterExileCooldownTime = 45f;
 	public Vector3 teleporterExilePosition = new Vector3(6f, -1f, 50f);
 
 	public float freezeTime = 5f;
-	public float freezeCooldownTime = 15f;
+	public float freezeCooldownTime = 20f;
 
 	public Vector3 shrinkedSize = new Vector3 (0.1f, 0.1f, 0.1f);
 	public Vector3 originalSize = new Vector3 (1f, 1f, 1f);

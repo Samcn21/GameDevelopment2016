@@ -10,12 +10,25 @@ public class NetworkManager : Photon.MonoBehaviour {
 	GameObject nephewRespawnSpot;
 	public GameObject[] machineSpawnSpots;
 	public GameObject[] allWeapons;
+	public float mapTime = 0f;
+
+	public int numAllMachines = 0;
+	public int numIntactRepairedMachine = 0;
+	public int numDestroyedMachines = 0;
+
+	public GameObject[] allMachines;
+	public MachineControl mc;
+
+	bool onetimeOP = true;
 
 	void Start () {
 		passiveCamera = GameObject.Find ("Main Camera");
 		madScientistRespawnSpot = GameObject.FindGameObjectWithTag("MadScientistRespawnSpot");
 		nephewRespawnSpots = GameObject.FindGameObjectsWithTag("NephewRespawnSpot");
 		nephewRespawnSpot = GameObject.FindGameObjectWithTag("NephewRespawnSpot");
+		allMachines = GameObject.FindGameObjectsWithTag ("Machine");
+		numAllMachines = allMachines.Length;
+		mapTime = 0f;
 
 
 		//machineSpawnSpots = GameObject.FindGameObjectsWithTag ("MachineSpawnSpot");
@@ -23,17 +36,40 @@ public class NetworkManager : Photon.MonoBehaviour {
 
 	}
 	void Connection() {
-			PhotonNetwork.ConnectUsingSettings ("Prototype_3");
+			PhotonNetwork.ConnectUsingSettings ("Prototype_4");
 	}
 	void OnGUI(){
+		mapTime += Time.deltaTime;
 		GUILayout.Label (PhotonNetwork.connectionStateDetailed.ToString ());
-		GUILayout.Label ("in room:" + PhotonNetwork.inRoom.ToString ());
+		//GUILayout.Label ("in room:" + PhotonNetwork.inRoom.ToString ());
+		GUILayout.Label (Mathf.Round(mapTime).ToString());
+
+		if (mapTime >= 360){
+			foreach(GameObject machine in allMachines){
+				mc = machine.GetComponent<MachineControl> ();
+				if (mc.MachineCurrentStatus == MachineControl.MachineStatus.Destroyed && onetimeOP){
+					numDestroyedMachines++;
+				}
+				numIntactRepairedMachine = numAllMachines - numDestroyedMachines;
+			}
+			onetimeOP = false;
+
+			GUILayout.Label ("6 minutes time is over");
+			GUILayout.Label ("All M: " + numAllMachines + " - Destroyed M: " + numDestroyedMachines + " - Fixed/Intact M: " + numIntactRepairedMachine);
+
+			if (numDestroyedMachines > numIntactRepairedMachine) {
+				GUILayout.Label ("Nephews Win");
+			} else {
+				GUILayout.Label ("Mad Scientist Wins");
+			}
+
+
+		}
 
 		if (PhotonNetwork.connected == false) {
 			if (GUILayout.Button ("Single Player")) {
 				PhotonNetwork.offlineMode = true;
 				OnJoinedLobby ();
-				SpawnMachines ();
 			} 
 			if (GUILayout.Button ("Multi Player")) {
 				Connection ();
@@ -114,7 +150,7 @@ public class NetworkManager : Photon.MonoBehaviour {
 	void SpawnMachines(){
 		foreach(GameObject machine in  machineSpawnSpots){
 			if (machine != null) {
-				GameObject MachineControllerGO = (GameObject)PhotonNetwork.Instantiate ("Machine", machine.transform.position, machine.transform.rotation, 0);
+				//GameObject MachineControllerGO = (GameObject)PhotonNetwork.Instantiate ("Machine", machine.transform.position, machine.transform.rotation, 0);
 			}
 		}
 	}
