@@ -2,23 +2,63 @@
 using System.Collections;
 
 public class NephewController: MonoBehaviour {
-	public float disableTime = 5f;
+	public float swapTime = 10f;
 	public bool timeStart = false;
+	public GameObject[] allNephews;
+	public GameObject myCameraController;
+	public GameObject anotherCameraController;
+	public GameObject myCameraTemp;
+	public GameObject anotherCameraTemp;
+
 	// Use this for initialization
 	void Start () {
 		
+
 	}
-	
-	// Update is called once per frame
+
+
+
 	void Update () {
-		if (timeStart) {
-			disableTime -= Time.deltaTime;
-			if (disableTime < 0) {
-				((MonoBehaviour)gameObject.GetComponent("FirstPersonController")).enabled = true;
-				timeStart = false;
-				disableTime = 5f;
-			}
-		}
+//		if (Input.GetKeyDown (KeyCode.R)) {
+//			//find all nephews in the scene
+//			allNephews = GameObject.FindGameObjectsWithTag ("Nephew");
+//
+//			//Mind Swap allowed (We have at least 2 nephews in the scene)
+//			//if (allNephews.Length >= 2){
+//				foreach (GameObject eachNephew in allNephews){
+//					//We found another nephew
+//					if (eachNephew.gameObject != this.gameObject){
+//
+//
+//						myCameraController = this.transform.FindChild("FirstPersonCharacter").gameObject;
+//						GameObject myCameraTemp = (GameObject)PhotonNetwork.Instantiate (myCameraController.name, Vector3.zero, Quaternion.identity, 0);
+//
+//						anotherCameraController = eachNephew.transform.FindChild("FirstPersonCharacter").gameObject;
+//						GameObject anotherCameraTemp = (GameObject)PhotonNetwork.Instantiate (anotherCameraController.name, Vector3.zero, Quaternion.identity, 0);
+//
+//						myCameraTemp.transform.parent = anotherCameraTemp.transform.parent;
+//
+//						
+//						//anotherCameraController.transform.gameObject = myCameraController.transform.gameObject;
+//						//myCameraController.transform.gameObject = myCameraTemp.transform.gameObject;
+//						
+//						//eachNephew.transform.parent = this.transform.FindChild("FirstPersonCharacter").gameObject.transform;
+//						//anotherCameraController = myCameraController;
+//					}
+//				}
+//			//}
+//		}
+
+
+
+//		if (timeStart) {
+//			disableTime -= Time.deltaTime;
+//			if (disableTime < 0) {
+//				((MonoBehaviour)gameObject.GetComponent("FirstPersonController")).enabled = true;
+//				timeStart = false;
+//				disableTime = 5f;
+//			}
+//		}
 	}
 
 //	void OnTriggerEnter (Collider other){
