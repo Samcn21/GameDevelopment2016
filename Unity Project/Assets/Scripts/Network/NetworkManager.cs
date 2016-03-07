@@ -101,6 +101,8 @@ public class NetworkManager : Photon.MonoBehaviour {
 		
 		GameObject madScientistControllerGO = (GameObject)PhotonNetwork.Instantiate ("MadScientist", madScientistRespawnSpot.transform.position, madScientistRespawnSpot.transform.rotation, 0);
 		madScientistControllerGO.transform.FindChild ("FirstPersonCharacter").gameObject.SetActive (true);
+		//madScientistControllerGO.transform.FindChild ("Weapons").gameObject.SetActive(true);
+
 		((MonoBehaviour)madScientistControllerGO.GetComponent("FirstPersonController")).enabled = true;
 		((MonoBehaviour)madScientistControllerGO.GetComponent("DemolitionRepair")).enabled = true;
 

@@ -13,8 +13,12 @@ public class MadScientistController: MonoBehaviour {
 		inputKeys = new ArrayList ();
 		inputKeys.Add (KeyCode.Alpha1);
 		inputKeys.Add (KeyCode.Alpha2);
+		inputKeys.Add (KeyCode.Alpha3);
+		inputKeys.Add (KeyCode.Alpha4);
+		inputKeys.Add (KeyCode.Alpha5);
+		inputKeys.Add (KeyCode.Alpha6);
 	}
-	
+
 	void Update () {
 		cooldown -= Time.deltaTime;
 		foreach (KeyCode key in inputKeys){
@@ -22,14 +26,28 @@ public class MadScientistController: MonoBehaviour {
 				switch (key) 
 				{
 				case KeyCode.Alpha1:
-					//shoot shrinker ray
 					currentWeaponName = "Shrinker Ray";
-					Debug.Log(currentWeaponName);
+					SwitchWeapons (currentWeaponName);
 					break;
 				case KeyCode.Alpha2:
-					//shoot swap mind ray
-					currentWeaponName = "Swap Mind Ray";
-					Debug.Log(currentWeaponName);
+					currentWeaponName = "Mind Swap Ray";
+					SwitchWeapons (currentWeaponName);
+					break;
+				case KeyCode.Alpha3:
+					currentWeaponName = "Force Dome";
+					SwitchWeapons (currentWeaponName);
+					break;
+				case KeyCode.Alpha4:
+					currentWeaponName = "Teleporter Pad";
+					SwitchWeapons (currentWeaponName);
+					break;
+				case KeyCode.Alpha5:
+					currentWeaponName = "Freeze Ray";
+					SwitchWeapons (currentWeaponName);
+					break;
+				case KeyCode.Alpha6:
+					currentWeaponName = "Jetpack";
+					SwitchWeapons (currentWeaponName);
 					break;
 				default:
 					break;
@@ -37,22 +55,33 @@ public class MadScientistController: MonoBehaviour {
 			}
 		}
 
-
 		switch (currentWeaponName) {
 		case "Shrinker Ray":
 			if (Input.GetButton("Fire1")){
-				//Shoot shrinkerRay
 				ShootShrinkerRay();
 			}
 			break;
-		case "Swap Mind Ray":
-			//Debug.Log ("I havbe swap mind ray now");
+		case "Mind Swap Ray":
 			break;
 		default:
 			//Debug.Log ("I have nothing!!!");
 			break;
 		}
 
+	}
+
+	void SwitchWeapons(string whichWeapon) {
+		foreach(Transform child in transform){
+			if (child.tag == "MadScientistWeapon"){
+				if (child.name == whichWeapon) {
+					child.gameObject.SetActive(true);
+				}
+				else
+				{
+					child.gameObject.SetActive(false);
+				}
+			}
+		}
 	}
 
 	void ShootShrinkerRay(){
