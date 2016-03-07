@@ -15,7 +15,7 @@ public class MachineControl : Photon.MonoBehaviour {
 
 	void Start () {
 		MachineCurrentStatus = MachineStatus.Intact;
-		GetComponent<Renderer> ().material = destroyedMachine;
+		GetComponent<Renderer> ().material = intactMachine;
 	}
 	
 	[PunRPC]
