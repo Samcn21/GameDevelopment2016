@@ -7,11 +7,13 @@ public class RayReciever : MonoBehaviour {
 	public bool canGetShotShrinker = true;
 	public float shrinkedTime = 6f;
 	public float shrinkedCooldownTime = 25f;
-	public Vector3 shrinkedSize = new Vector3 (0.01f, 0.1f, 0.01f);
+	public Vector3 shrinkedSize = new Vector3 (0.1f, 0.1f, 0.1f);
 	public Vector3 originalSize = new Vector3 (1f, 1f, 1f);
 
 	void Start () {
 		currentResistance = resistancePoints;
+		//GameObject thisReciever = GameObject.Find (this.name);
+		//Debug.Log(((MonoBehaviour)thisReciever.GetComponent("FirstPersonController")).WalkSpeed = 1f);
 	}
 
 	[PunRPC]

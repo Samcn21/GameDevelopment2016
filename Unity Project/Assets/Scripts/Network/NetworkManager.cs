@@ -66,21 +66,22 @@ public class NetworkManager : Photon.MonoBehaviour {
 	
 		if (PhotonNetwork.isMasterClient) {
 
-			RespawnMadScientist ();
+			//RespawnNephew ();
+			RespawnNephew (2);
 
 		} else {
 			switch (PhotonNetwork.countOfPlayers)
 			{
 			case 2:
-				Debug.Log(PhotonNetwork.countOfPlayers.ToString ());
+				//Debug.Log(PhotonNetwork.countOfPlayers.ToString ());
 				RespawnNephew (0);
 				break;
 			case 3:
-				Debug.Log(PhotonNetwork.countOfPlayers.ToString ());
+				//Debug.Log(PhotonNetwork.countOfPlayers.ToString ());
 				RespawnNephew (1);
 				break;
 			case 4:
-				Debug.Log(PhotonNetwork.countOfPlayers.ToString ());
+				//Debug.Log(PhotonNetwork.countOfPlayers.ToString ());
 				RespawnNephew (2);
 				break;
 			}

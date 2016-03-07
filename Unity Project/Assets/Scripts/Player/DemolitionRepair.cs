@@ -10,13 +10,11 @@ public class DemolitionRepair : MonoBehaviour {
 	public bool isDestroyed = false;
 	public bool oneTimeCall = false;
 
-	//GameObject[] allMachines;
 	public MachineControl mc;
 	public string characterTag = "";
 
 	void Start () {
 		characterTag = transform.tag.ToString ();
-		//allMachines = GameObject.FindGameObjectsWithTag ("Machine");
 	}
 
 	void OnTriggerStay(Collider other){
