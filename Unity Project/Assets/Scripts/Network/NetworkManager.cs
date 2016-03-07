@@ -9,12 +9,14 @@ public class NetworkManager : Photon.MonoBehaviour {
 	GameObject[] nephewRespawnSpots;
 	GameObject nephewRespawnSpot;
 	public GameObject[] machineSpawnSpots;
+	public GameObject[] allWeapons;
 
 	void Start () {
 		passiveCamera = GameObject.Find ("Main Camera");
 		madScientistRespawnSpot = GameObject.FindGameObjectWithTag("MadScientistRespawnSpot");
 		nephewRespawnSpots = GameObject.FindGameObjectsWithTag("NephewRespawnSpot");
 		nephewRespawnSpot = GameObject.FindGameObjectWithTag("NephewRespawnSpot");
+
 
 		//machineSpawnSpots = GameObject.FindGameObjectsWithTag ("MachineSpawnSpot");
 
@@ -63,10 +65,8 @@ public class NetworkManager : Photon.MonoBehaviour {
 
 	
 		if (PhotonNetwork.isMasterClient) {
-			RespawnMadScientist ();
-			Debug.Log(PhotonNetwork.countOfPlayers.ToString ());
 
-			//SpawnMachines ();
+			RespawnMadScientist ();
 
 		} else {
 			switch (PhotonNetwork.countOfPlayers)
@@ -85,31 +85,22 @@ public class NetworkManager : Photon.MonoBehaviour {
 				break;
 			}
 		}
-
-
-
-//		if (GameObject.FindGameObjectWithTag("MadScientist") == null) {
-//			Debug.Log ("Not Found MadScientist");
-//
-//		} else {
-//			Debug.Log ("Found MadScientist");
-//		}
-
 	}
 
 	void RespawnMadScientist (){
 		
 		GameObject madScientistControllerGO = (GameObject)PhotonNetwork.Instantiate ("MadScientist", madScientistRespawnSpot.transform.position, madScientistRespawnSpot.transform.rotation, 0);
-		madScientistControllerGO.transform.FindChild ("FirstPersonCharacter").gameObject.SetActive (true);
-		//madScientistControllerGO.transform.FindChild ("Weapons").gameObject.SetActive(true);
 
+		madScientistControllerGO.transform.FindChild ("FirstPersonCharacter").gameObject.SetActive (true);
 		((MonoBehaviour)madScientistControllerGO.GetComponent("FirstPersonController")).enabled = true;
 		((MonoBehaviour)madScientistControllerGO.GetComponent("DemolitionRepair")).enabled = true;
+		((MonoBehaviour)madScientistControllerGO.GetComponent("MadScientistController")).enabled = true;
+
 
 }
 	void RespawnNephew (int playerNumber){
 		GameObject nephewControllerGO = (GameObject)PhotonNetwork.Instantiate ("Nephew" , nephewRespawnSpots[playerNumber].transform.position, nephewRespawnSpot.transform.rotation, 0);
-		nephewControllerGO.name = nephewControllerGO.name + playerNumber.ToString ();
+		//nephewControllerGO.name = nephewControllerGO.name + playerNumber.ToString ();
 		Debug.Log (nephewControllerGO.name);
 		nephewControllerGO.transform.FindChild ("FirstPersonCharacter").gameObject.SetActive (true);
 		((MonoBehaviour)nephewControllerGO.GetComponent("FirstPersonController")).enabled = true;

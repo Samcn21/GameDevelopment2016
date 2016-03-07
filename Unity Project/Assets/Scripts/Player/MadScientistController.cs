@@ -19,6 +19,7 @@ public class MadScientistController: MonoBehaviour {
 		inputKeys.Add (KeyCode.Alpha6);
 	}
 
+	[PunRPC]
 	void Update () {
 		cooldown -= Time.deltaTime;
 		foreach (KeyCode key in inputKeys){
@@ -27,26 +28,32 @@ public class MadScientistController: MonoBehaviour {
 				{
 				case KeyCode.Alpha1:
 					currentWeaponName = "Shrinker Ray";
-					SwitchWeapons (currentWeaponName);
+					this.GetComponent<PhotonView> ().RPC ("SwitchWeapons", PhotonTargets.All, currentWeaponName);
+					//SwitchWeapons (currentWeaponName);
 					break;
 				case KeyCode.Alpha2:
 					currentWeaponName = "Mind Swap Ray";
+					this.GetComponent<PhotonView> ().RPC ("SwitchWeapons", PhotonTargets.All, currentWeaponName);
 					SwitchWeapons (currentWeaponName);
 					break;
 				case KeyCode.Alpha3:
 					currentWeaponName = "Force Dome";
+					this.GetComponent<PhotonView> ().RPC ("SwitchWeapons", PhotonTargets.All, currentWeaponName);
 					SwitchWeapons (currentWeaponName);
 					break;
 				case KeyCode.Alpha4:
 					currentWeaponName = "Teleporter Pad";
+					this.GetComponent<PhotonView> ().RPC ("SwitchWeapons", PhotonTargets.All, currentWeaponName);
 					SwitchWeapons (currentWeaponName);
 					break;
 				case KeyCode.Alpha5:
 					currentWeaponName = "Freeze Ray";
+					this.GetComponent<PhotonView> ().RPC ("SwitchWeapons", PhotonTargets.All, currentWeaponName);
 					SwitchWeapons (currentWeaponName);
 					break;
 				case KeyCode.Alpha6:
 					currentWeaponName = "Jetpack";
+					this.GetComponent<PhotonView> ().RPC ("SwitchWeapons", PhotonTargets.All, currentWeaponName);
 					SwitchWeapons (currentWeaponName);
 					break;
 				default:
@@ -70,9 +77,10 @@ public class MadScientistController: MonoBehaviour {
 
 	}
 
+	[PunRPC]
 	void SwitchWeapons(string whichWeapon) {
 		foreach(Transform child in transform){
-			if (child.tag == "MadScientistWeapon"){
+			if (child.tag == "MSWeapon"){
 				if (child.name == whichWeapon) {
 					child.gameObject.SetActive(true);
 				}

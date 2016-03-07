@@ -8,18 +8,19 @@ public class NephewController: MonoBehaviour {
 	void Start () {
 		
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		if (timeStart) {
-			disableTime -= Time.deltaTime;
-			if (disableTime < 0) {
-				((MonoBehaviour)gameObject.GetComponent("FirstPersonController")).enabled = true;
-				timeStart = false;
-				disableTime = 5f;
-			}
-		}
-	}
+
+
+
+//	void Update () {
+//		if (timeStart) {
+//			disableTime -= Time.deltaTime;
+//			if (disableTime < 0) {
+//				((MonoBehaviour)gameObject.GetComponent("FirstPersonController")).enabled = true;
+//				timeStart = false;
+//				disableTime = 5f;
+//			}
+//		}
+//	}
 
 //	void OnTriggerEnter (Collider other){
 //		if (other.tag == "MadScientist")
