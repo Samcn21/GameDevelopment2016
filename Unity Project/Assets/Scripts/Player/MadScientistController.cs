@@ -12,6 +12,9 @@ public class MadScientistController: MonoBehaviour {
 	public float teleporterExileFireRate = 5f;
 	public float teleporterExilecooldown = 0f;
 
+	public float freezeRayFireRate = 5f;
+	public float freezeRayCooldown = 0f;
+
 	public string currentWeaponName;
 	ArrayList inputKeys; 
 
@@ -85,7 +88,12 @@ public class MadScientistController: MonoBehaviour {
 			if (Input.GetButton("Fire1")){
 				Shoot(teleporterExilecooldown, teleporterExileFireRate, currentWeaponName);
 			}
-			break;			
+			break;		
+		case "Freeze Ray":
+			if (Input.GetButton("Fire1")){
+				Shoot(freezeRayCooldown, freezeRayFireRate, currentWeaponName);
+			}
+			break;
 		default:
 			//Debug.Log ("I have nothing!!!");
 			break;

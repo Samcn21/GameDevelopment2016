@@ -7,6 +7,8 @@ public class RayReciever : MonoBehaviour {
 	public bool canGetShotShrinker = true;
 	public bool canGetShotForceDome = true;
 	public bool canGetShotTeleporterExile = true;
+	public bool canGetShotFreezeRay = true;
+
 
 
 	public float shrinkedTime = 6f;
@@ -19,6 +21,9 @@ public class RayReciever : MonoBehaviour {
 	public float teleporterExileTime = 10f;
 	public float teleporterExileCooldownTime = 45f;
 	public Vector3 teleporterExilePosition = new Vector3(6f, -1f, 50f);
+
+	public float freezeTime = 5f;
+	public float freezeCooldownTime = 15f;
 
 	public Vector3 shrinkedSize = new Vector3 (0.1f, 0.1f, 0.1f);
 	public Vector3 originalSize = new Vector3 (1f, 1f, 1f);
@@ -94,6 +99,23 @@ public class RayReciever : MonoBehaviour {
 
 				currentResistance = resistancePoints;
 				canGetShotTeleporterExile = true;
+			}
+			break;
+		case "Freeze Ray":
+			currentResistance -= hitPoints;
+			if ((currentResistance < 0) && (canGetShotFreezeRay)) {
+
+				((MonoBehaviour)this.gameObject.GetComponent("FirstPersonController")).enabled = false;
+
+				canGetShotFreezeRay = false;
+
+				yield return new WaitForSeconds (freezeTime);
+				((MonoBehaviour)this.gameObject.GetComponent("FirstPersonController")).enabled = true;
+
+				yield return new WaitForSeconds (freezeCooldownTime);
+
+				currentResistance = resistancePoints;
+				canGetShotFreezeRay = true;
 			}
 			break;
 		default:
