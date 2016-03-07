@@ -32,27 +32,27 @@ public class MadScientistController: MonoBehaviour {
 					//SwitchWeapons (currentWeaponName);
 					break;
 				case KeyCode.Alpha2:
-					currentWeaponName = "Mind Swap Ray";
-					this.GetComponent<PhotonView> ().RPC ("SwitchWeapons", PhotonTargets.All, currentWeaponName);
-					SwitchWeapons (currentWeaponName);
-					break;
-				case KeyCode.Alpha3:
 					currentWeaponName = "Force Dome";
 					this.GetComponent<PhotonView> ().RPC ("SwitchWeapons", PhotonTargets.All, currentWeaponName);
 					SwitchWeapons (currentWeaponName);
 					break;
-				case KeyCode.Alpha4:
+				case KeyCode.Alpha3:
 					currentWeaponName = "Teleporter Pad";
 					this.GetComponent<PhotonView> ().RPC ("SwitchWeapons", PhotonTargets.All, currentWeaponName);
 					SwitchWeapons (currentWeaponName);
 					break;
-				case KeyCode.Alpha5:
+				case KeyCode.Alpha4:
 					currentWeaponName = "Freeze Ray";
 					this.GetComponent<PhotonView> ().RPC ("SwitchWeapons", PhotonTargets.All, currentWeaponName);
 					SwitchWeapons (currentWeaponName);
 					break;
-				case KeyCode.Alpha6:
+				case KeyCode.Alpha5:
 					currentWeaponName = "Jetpack";
+					this.GetComponent<PhotonView> ().RPC ("SwitchWeapons", PhotonTargets.All, currentWeaponName);
+					SwitchWeapons (currentWeaponName);
+					break;
+				case KeyCode.Alpha6:
+					currentWeaponName = "Mind Swap Ray";
 					this.GetComponent<PhotonView> ().RPC ("SwitchWeapons", PhotonTargets.All, currentWeaponName);
 					SwitchWeapons (currentWeaponName);
 					break;
@@ -68,7 +68,8 @@ public class MadScientistController: MonoBehaviour {
 				ShootShrinkerRay();
 			}
 			break;
-		case "Mind Swap Ray":
+		case "Force Dome":
+			
 			break;
 		default:
 			//Debug.Log ("I have nothing!!!");

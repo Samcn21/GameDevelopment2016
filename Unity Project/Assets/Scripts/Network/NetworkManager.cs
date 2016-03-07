@@ -66,8 +66,8 @@ public class NetworkManager : Photon.MonoBehaviour {
 	
 		if (PhotonNetwork.isMasterClient) {
 
-			//RespawnNephew ();
-			RespawnNephew (2);
+			RespawnMadScientist ();
+			//RespawnNephew (2);
 
 		} else {
 			switch (PhotonNetwork.countOfPlayers)
@@ -101,8 +101,8 @@ public class NetworkManager : Photon.MonoBehaviour {
 }
 	void RespawnNephew (int playerNumber){
 		GameObject nephewControllerGO = (GameObject)PhotonNetwork.Instantiate ("Nephew" , nephewRespawnSpots[playerNumber].transform.position, nephewRespawnSpot.transform.rotation, 0);
-		//nephewControllerGO.name = nephewControllerGO.name + playerNumber.ToString ();
-		Debug.Log (nephewControllerGO.name);
+		nephewControllerGO.name = nephewControllerGO.name + playerNumber.ToString ();
+		//Debug.Log (nephewControllerGO.name);
 		nephewControllerGO.transform.FindChild ("FirstPersonCharacter").gameObject.SetActive (true);
 		((MonoBehaviour)nephewControllerGO.GetComponent("FirstPersonController")).enabled = true;
 		((MonoBehaviour)nephewControllerGO.GetComponent("RayReciever")).enabled = true;
