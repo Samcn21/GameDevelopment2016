@@ -2,43 +2,53 @@
 using System.Collections;
 
 public class DemolitionRepair : MonoBehaviour {
-	public Material brokenMachine;
-	public float demolitionTime = 2f;
-	public Material repairedMachine;
-	public float repairTime = 1f;
-	public bool workingStatus = false;
+	
+	public float demolitionTime = 3f;
+	public float repairTime = 1.5f;
+
+	public bool isRepaired = false;
+	public bool isDestroyed = false;
+	public bool oneTimeCall = false;
 
 	public MachineControl mc;
 	public string characterTag = "";
-	// Use this for initialization
+
 	void Start () {
 		characterTag = transform.tag.ToString ();
-		Debug.Log (characterTag);
 	}
 
-	void OnTriggerEnter(Collider other){
+	void OnTriggerStay(Collider other){
 		if (other.name == "Machine"){
-			mc = other.GetComponent<MachineControl>();
-			mc.GetComponent<PhotonView> ().RPC ("DemolitionRepair",PhotonTargets.All, characterTag);
-
-			mc.GetComponent<PhotonView> ().RPC ("WorkingPermissionFlag", PhotonTargets.All);
+			if (oneTimeCall){
+				mc = other.GetComponent<MachineControl>();
+				mc.GetComponent<PhotonView> ().RPC ("DemolitionRepair",PhotonTargets.All, characterTag, isRepaired, isDestroyed);
+				oneTimeCall = false;
+				//Debug.Log ("Invoked Demolition Repair function in Machine Control script");				
+			}
 		}
-
 	}
 
-		// Update is called once per frame
 	void Update () {
-		if (Input.GetKey(KeyCode.E) && workingStatus){
-			//we need to send the destroying/repairing status to the MachineControl script.
-			//we need to disable the player's control of movement as soon as player hold E to fix or destroy
-			if (characterTag == "MadScientist") {
-				// fixing counter
-				//animation of fixing
+		//we need to disable the player's control of movement as soon as player hold E to fix or destroy
+		//not to let the player move during repairing or destroying
+		if (Input.GetKey(KeyCode.E)){
+			if (characterTag == "MadScientist")  {
+				repairTime -= Time.deltaTime;
+				if (repairTime < 0) {
+					//animation of fixing
+					isRepaired = true;
+					oneTimeCall = true;
+					repairTime = 1.5f;
+				}
 			}else if(characterTag == "Nephew") {
-				//animation of destroying
+				demolitionTime -= Time.deltaTime;
+				if (demolitionTime < 0) {
+					//animation of destroying
+					isDestroyed = true;
+					oneTimeCall = true;
+					demolitionTime = 3f;
+				}
 			}
-
-			//Debug.Log ("Repairing Machine");
 		}
 	}
 }
