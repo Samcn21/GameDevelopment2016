@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
+//last commit
 public class RayReciever : MonoBehaviour {
 	int resistancePoints = 100;
 	public int currentResistance = 100;
@@ -20,7 +21,6 @@ public class RayReciever : MonoBehaviour {
 
 	public float teleporterExileTime = 15f;
 	public float teleporterExileCooldownTime = 45f;
-	public Vector3 teleporterExilePosition = new Vector3(6f, -1f, 50f);
 
 	public float freezeTime = 5f;
 	public float freezeCooldownTime = 20f;
@@ -30,7 +30,8 @@ public class RayReciever : MonoBehaviour {
 
 	void Start () {
 		currentResistance = resistancePoints;
-		forceDomePosition = new Vector3(6f, -1f, 50f);
+		forceDomePosition = new Vector3(6f, -1f, 100f);
+		shrinkedSize = new Vector3 (0.1f, 0.1f, 0.1f);
 		//GameObject thisReciever = GameObject.Find (this.name);
 		//Debug.Log(((MonoBehaviour)thisReciever.GetComponent("FirstPersonController")).WalkSpeed = 1f);
 	}
@@ -66,8 +67,9 @@ public class RayReciever : MonoBehaviour {
 			if ((currentResistance < 0) && (canGetShotForceDome)) {
 				
 				GameObject forceDome = GameObject.FindGameObjectWithTag("ForceDome");
+				//Vector3 thisObject = this.transform.position;
 
-				forceDome.transform.position = this.transform.position;
+				forceDome.transform.position = new Vector3 (this.transform.position.x, this.transform.position.y - 1.2f, this.transform.position.z);
 				canGetShotForceDome = false;
 
 				yield return new WaitForSeconds (forceDomeTime);
