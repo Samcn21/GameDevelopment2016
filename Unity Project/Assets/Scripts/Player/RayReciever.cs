@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
+//last commit
 public class RayReciever : MonoBehaviour {
 	int resistancePoints = 100;
 	public int currentResistance = 100;
@@ -30,6 +31,7 @@ public class RayReciever : MonoBehaviour {
 	void Start () {
 		currentResistance = resistancePoints;
 		forceDomePosition = new Vector3(6f, -1f, 100f);
+		shrinkedSize = new Vector3 (0.1f, 0.1f, 0.1f);
 		//GameObject thisReciever = GameObject.Find (this.name);
 		//Debug.Log(((MonoBehaviour)thisReciever.GetComponent("FirstPersonController")).WalkSpeed = 1f);
 	}
