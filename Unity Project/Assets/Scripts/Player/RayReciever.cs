@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityStandardAssets.Characters.FirstPerson;
 
 //last commit
 public class RayReciever : MonoBehaviour {
@@ -25,15 +26,25 @@ public class RayReciever : MonoBehaviour {
 	public float freezeTime = 5f;
 	public float freezeCooldownTime = 20f;
 
-	public Vector3 shrinkedSize = new Vector3 (0.1f, 0.1f, 0.1f);
-	public Vector3 originalSize = new Vector3 (1f, 1f, 1f);
+    public float shrinkScale = 0.1f;
+
+    private Vector3 originalSize;
+    private FirstPersonController fpc;
+    private float shrinkFOV = 120;
+    private float originalFOV;
+    private float originalWalkspeed;
+    private Camera localCamera;
 
 	void Start () {
 		currentResistance = resistancePoints;
 		forceDomePosition = new Vector3(6f, -1f, 100f);
-		shrinkedSize = new Vector3 (0.1f, 0.1f, 0.1f);
-		//GameObject thisReciever = GameObject.Find (this.name);
-		//Debug.Log(((MonoBehaviour)thisReciever.GetComponent("FirstPersonController")).WalkSpeed = 1f);
+	    fpc = GetComponent<FirstPersonController>();
+	    originalSize = transform.localScale;
+	    localCamera = GetComponentInChildren<Camera>();
+	    originalFOV = localCamera.fieldOfView;
+	    originalWalkspeed = fpc.m_WalkSpeed;
+	    //GameObject thisReciever = GameObject.Find (this.name);
+	    //Debug.Log(((MonoBehaviour)thisReciever.GetComponent("FirstPersonController")).WalkSpeed = 1f);
 	}
 
 	[PunRPC]
@@ -52,11 +63,15 @@ public class RayReciever : MonoBehaviour {
 			//Debug.Log ("Shrinker Ray Affected!!!");
 			currentResistance -= hitPoints;
 			if ((currentResistance < 0) && (canGetShotShrinker)) {
-				transform.localScale = shrinkedSize;
+				transform.localScale *= shrinkScale;
+			    localCamera.fieldOfView = shrinkFOV;
+			    fpc.m_WalkSpeed *= shrinkScale;
 				canGetShotShrinker = false;
 				yield return new WaitForSeconds (shrinkedTime);
 				transform.localScale = originalSize;
-				yield return new WaitForSeconds (shrinkedCooldownTime);
+			    localCamera.fieldOfView = originalFOV;
+			    fpc.m_WalkSpeed = originalWalkspeed;
+			    yield return new WaitForSeconds(shrinkedCooldownTime);
 				currentResistance = resistancePoints;
 				canGetShotShrinker = true;
 			}
