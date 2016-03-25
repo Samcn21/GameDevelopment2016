@@ -17,6 +17,21 @@ public class MachineControl : Photon.MonoBehaviour {
 		MachineCurrentStatus = MachineStatus.Intact;
 		GetComponent<Renderer> ().material = intactMachine;
 	}
+
+	void Update(){
+		if (MachineCurrentStatus == MachineStatus.Intact) {
+			GetComponent<Renderer> ().material = intactMachine;
+		} else if (MachineCurrentStatus == MachineStatus.Repaired) {
+			GetComponent<Renderer> ().material = repairedMachine;
+		} else if (MachineCurrentStatus == MachineStatus.Destroyed) {
+			GetComponent<Renderer> ().material = destroyedMachine;
+		}
+	}
+
+	[PunRPC]
+	public void RestartMachine(){
+		MachineCurrentStatus = MachineStatus.Intact;
+	}
 	
 	[PunRPC]
 	public void DemolitionRepair (string characterType, bool isRepaired, bool isDestroyed) {

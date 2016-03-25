@@ -2,14 +2,6 @@
 using System.Collections;
 
 public class NephewController: MonoBehaviour {
-	public float swapTime = 10f;
-	public bool timeStart = false;
-	public GameObject[] allNephews;
-	public GameObject myCameraController;
-	public GameObject anotherCameraController;
-	public GameObject myCameraTemp;
-	public GameObject anotherCameraTemp;
-
 	// Use this for initialization
 	void Start () {
 		
