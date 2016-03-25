@@ -15,7 +15,7 @@ public class DemolitionRepair : MonoBehaviour {
 	public MachineControl mc;
 	public string characterTag = "";
 
-    [SerializeField] private float maxRepairRange = 3;
+    private float maxRepairRange = 3;
 
 	void Start () {
 		characterTag = transform.tag.ToString ();
